@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Project Cost and Timeline Prediction</title>
+    <title>Predicting Project Cost and Timeline</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Predicting Project Cost and Timeline</h1>
 
-    <form>
-        <label>Project Size:</label><br>
-        <input type="number"><br><br>
+<div class="container">
 
-        <label>Team Size:</label><br>
-        <input type="number"><br><br>
+<h1>Predicting Project Cost and Timeline</h1>
 
-        <label>Complexity:</label><br>
-        <input type="number"><br><br>
+<form action="/predict" method="POST">
 
-        <label>Experience:</label><br>
-        <input type="number"><br><br>
+<label>Team Size</label>
+<input type="number" name="team_size" required>
 
-        <button type="submit">Predict</button>
-    </form>
+<label>Number of Tasks</label>
+<input type="number" name="number_of_tasks" required>
+
+<label>Project Complexity (1-5)</label>
+<input type="number" name="project_complexity" min="1" max="5" required>
+
+<label>Resource Requirements (₹)</label>
+<input type="number" name="resource_requirements" required>
+
+<button type="submit">Predict</button>
+
+</form>
+
+{% if predicted_cost %}
+
+<h2>Prediction Result</h2>
+
+<p><b>Estimated Cost:</b> ₹ {{ predicted_cost }}</p>
+
+<p><b>Estimated Timeline:</b> {{ predicted_timeline }} Days</p>
+
+{% endif %}
+
+</div>
 
 </body>
 </html>
