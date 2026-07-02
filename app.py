@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import joblib
 import pandas as pd
+import os
 
 app = Flask(__name__)
 
@@ -16,32 +17,28 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-
+    project_size = int(request.form["project_size"])
     team_size = int(request.form["team_size"])
-    number_of_tasks = int(request.form["number_of_tasks"])
-    project_complexity = int(request.form["project_complexity"])
-    resource_requirements = int(request.form["resource_requirements"])
+    complexity = int(request.form["complexity"])
+    experience = int(request.form["experience"])
 
-    data = pd.DataFrame([[team_size,
-                          number_of_tasks,
-                          project_complexity,
-                          resource_requirements]],
-                        columns=[
-                            "Team_Size",
-                            "Number_of_Tasks",
-                            "Project_Complexity",
-                            "Resource_Requirements"
-                        ])
+    data = pd.DataFrame([{
+        "Project_Size": project_size,
+        "Team_Size": team_size,
+        "Complexity": complexity,
+        "Experience": experience
+    }])
 
     predicted_cost = cost_model.predict(data)[0]
     predicted_timeline = timeline_model.predict(data)[0]
 
     return render_template(
         "index.html",
-        predicted_cost=round(predicted_cost, 2),
-        predicted_timeline=round(predicted_timeline, 2)
+        cost=round(predicted_cost, 2),
+        timeline=round(predicted_timeline, 2)
     )
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
