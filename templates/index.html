@@ -1,87 +1,169 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Project Cost and Timeline Prediction</title>
-    <style>
-        body{
-            font-family:Arial,sans-serif;
-            background:#f2f2f2;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-        }
-        .container{
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            width:350px;
-            box-shadow:0 0 10px rgba(0,0,0,0.2);
-        }
-        h2{
-            text-align:center;
-        }
-        input{
-            width:100%;
-            padding:10px;
-            margin:8px 0;
-        }
-        button{
-            width:100%;
-            padding:10px;
-            background:#007bff;
-            color:white;
-            border:none;
-            border-radius:5px;
-            font-size:16px;
-            cursor:pointer;
-        }
-        button:hover{
-            background:#0056b3;
-        }
-        .result{
-            margin-top:20px;
-            padding:10px;
-            background:#e8f5e9;
-            border-radius:5px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Cost & Timeline Prediction</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#4facfe,#6a11cb);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+background:#fff;
+width:100%;
+max-width:430px;
+padding:30px;
+border-radius:20px;
+box-shadow:0 15px 35px rgba(0,0,0,0.25);
+}
+
+h2{
+text-align:center;
+color:#333;
+margin-bottom:25px;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:15px;
+margin-bottom:6px;
+color:#444;
+}
+
+input{
+width:100%;
+padding:12px;
+border:2px solid #ddd;
+border-radius:10px;
+font-size:16px;
+outline:none;
+transition:.3s;
+}
+
+input:focus{
+border-color:#6a11cb;
+}
+
+button{
+width:100%;
+padding:14px;
+margin-top:25px;
+background:linear-gradient(90deg,#4facfe,#6a11cb);
+border:none;
+border-radius:10px;
+color:white;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.03);
+}
+
+.result{
+margin-top:25px;
+padding:18px;
+border-radius:12px;
+background:#f5f5f5;
+text-align:center;
+}
+
+.cost{
+background:#d4edda;
+color:#155724;
+padding:12px;
+margin-top:12px;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+}
+
+.time{
+background:#d1ecf1;
+color:#0c5460;
+padding:12px;
+margin-top:12px;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+}
+
+.error{
+margin-top:20px;
+padding:12px;
+background:#f8d7da;
+color:#721c24;
+border-radius:10px;
+text-align:center;
+}
+
+</style>
+
 </head>
+
 <body>
 
 <div class="container">
 
-<h2>Project Cost & Timeline Prediction</h2>
+<h2>🚀 Project Cost & Timeline Prediction</h2>
 
 <form action="/predict" method="POST">
 
-<label>Project Size</label>
-<input type="number" name="project_size" required>
+<label>📁 Project Size</label>
+<input type="number" name="project_size" placeholder="Enter Project Size" required>
 
-<label>Team Size</label>
-<input type="number" name="team_size" required>
+<label>👨‍💻 Team Size</label>
+<input type="number" name="team_size" placeholder="Enter Team Size" required>
 
-<label>Complexity (1-5)</label>
-<input type="number" name="complexity" min="1" max="5" required>
+<label>⚙ Complexity (1-5)</label>
+<input type="number" name="complexity" min="1" max="5" placeholder="1 to 5" required>
 
-<label>Team Experience (Years)</label>
-<input type="number" name="experience" required>
+<label>⭐ Team Experience (Years)</label>
+<input type="number" name="experience" placeholder="Enter Experience" required>
 
-<button type="submit">Predict</button>
+<button type="submit">Predict Now</button>
 
 </form>
 
 {% if error %}
-<div class="result" style="background:#fdecea;color:#b71c1c;">
-<p>{{ error }}</p>
+<div class="error">
+{{ error }}
 </div>
 {% endif %}
 
 {% if has_result %}
 <div class="result">
-<h3>Prediction Result</h3>
-<p><b>Estimated Cost:</b> ₹ {{ cost }}</p>
-<p><b>Estimated Timeline:</b> {{ timeline }} Days</p>
+
+<h3>✅ Prediction Result</h3>
+
+<div class="cost">
+💰 Estimated Cost<br>
+₹ {{ cost }}
+</div>
+
+<div class="time">
+📅 Estimated Timeline<br>
+{{ timeline }} Days
+</div>
+
 </div>
 {% endif %}
 
