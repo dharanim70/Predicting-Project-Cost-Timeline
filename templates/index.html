@@ -71,18 +71,18 @@
 
 </form>
 
-{% if cost %}
-
-<div class="result">
-
-<h3>Prediction Result</h3>
-
-<p><b>Estimated Cost:</b> ₹ {{ cost }}</p>
-
-<p><b>Estimated Timeline:</b> {{ timeline }} Days</p>
-
+{% if error %}
+<div class="result" style="background:#fdecea;color:#b71c1c;">
+<p>{{ error }}</p>
 </div>
+{% endif %}
 
+{% if has_result %}
+<div class="result">
+<h3>Prediction Result</h3>
+<p><b>Estimated Cost:</b> ₹ {{ cost }}</p>
+<p><b>Estimated Timeline:</b> {{ timeline }} Days</p>
+</div>
 {% endif %}
 
 </div>
