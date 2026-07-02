@@ -1,40 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Predicting Project Cost and Timeline</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Project Cost and Timeline Prediction</title>
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            background:#f2f2f2;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+        .container{
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            width:350px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+        h2{
+            text-align:center;
+        }
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+        }
+        button{
+            width:100%;
+            padding:10px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:#0056b3;
+        }
+        .result{
+            margin-top:20px;
+            padding:10px;
+            background:#e8f5e9;
+            border-radius:5px;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
 
-<h1>Predicting Project Cost and Timeline</h1>
+<h2>Project Cost & Timeline Prediction</h2>
 
 <form action="/predict" method="POST">
+
+<label>Project Size</label>
+<input type="number" name="project_size" required>
 
 <label>Team Size</label>
 <input type="number" name="team_size" required>
 
-<label>Number of Tasks</label>
-<input type="number" name="number_of_tasks" required>
+<label>Complexity (1-5)</label>
+<input type="number" name="complexity" min="1" max="5" required>
 
-<label>Project Complexity (1-5)</label>
-<input type="number" name="project_complexity" min="1" max="5" required>
-
-<label>Resource Requirements (₹)</label>
-<input type="number" name="resource_requirements" required>
+<label>Team Experience (Years)</label>
+<input type="number" name="experience" required>
 
 <button type="submit">Predict</button>
 
 </form>
 
-{% if predicted_cost %}
+{% if cost %}
 
-<h2>Prediction Result</h2>
+<div class="result">
 
-<p><b>Estimated Cost:</b> ₹ {{ predicted_cost }}</p>
+<h3>Prediction Result</h3>
 
-<p><b>Estimated Timeline:</b> {{ predicted_timeline }} Days</p>
+<p><b>Estimated Cost:</b> ₹ {{ cost }}</p>
+
+<p><b>Estimated Timeline:</b> {{ timeline }} Days</p>
+
+</div>
 
 {% endif %}
 
